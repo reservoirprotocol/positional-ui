@@ -17,8 +17,8 @@ const Home: NextPage = () => {
 
   const [input, setInput] = useState('');
   const [contract, setContract] = useState('');
-  const [token, setToken] = useState('');
-  const [bps, setBps] = useState('');
+  const [token, setToken] = useState('6540');
+  const [bps, setBps] = useState('8000');
 
   return (
     <div>
@@ -50,8 +50,8 @@ const Home: NextPage = () => {
                   name="token"
                   id="token"
                   className="border p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                  value="6540"
-                  onInput={e => setToken((e.target as any).value)}
+                  value={token}
+                  onChange={e => setToken((e.target as any).value)}
                 />
               </div>
               <label htmlFor="bps" className="mt-5 block text-sm font-medium text-gray-700">
@@ -62,8 +62,8 @@ const Home: NextPage = () => {
                   name="bps"
                   id="bps"
                   className="border p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                  value="8000"
-                  onInput={e => setBps((e.target as any).value)}
+                  value={bps}
+                  onChange={e => setBps((e.target as any).value)}
                 />
               </div>
           <button className="mt-5 inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"  onClick={async () => {
@@ -75,7 +75,7 @@ const Home: NextPage = () => {
             const order = {
               asset: "0x79e2d470f950f2cf78eef41720e8ff2cf4b3cd78",
               maker: address,
-              bps: 8000,
+              bps,
               expiration: Math.floor(Date.now() / 1000) + 3600 * 2,
             };
 
@@ -165,7 +165,7 @@ const Home: NextPage = () => {
               }
 
               const exchange = new Contract("0xf11f9ba71a532d170a2320aeb78596450a892775", abi);
-              await exchange.connect(signer!).fillOrder(order, packet, 6540);
+              await exchange.connect(signer!).fillOrder(order, packet, token);
             }}>Fill</button>
           </div>
           </div>
