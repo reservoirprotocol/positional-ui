@@ -50,7 +50,8 @@ const Home: NextPage = () => {
                   name="token"
                   id="token"
                   className="border p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                  value="6504"
+                  value="6540"
+                  onInput={e => setToken((e.target as any).value)}
                 />
               </div>
               <label htmlFor="bps" className="mt-5 block text-sm font-medium text-gray-700">
@@ -62,6 +63,7 @@ const Home: NextPage = () => {
                   id="bps"
                   className="border p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                   value="8000"
+                  onInput={e => setBps((e.target as any).value)}
                 />
               </div>
           <button className="mt-5 inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"  onClick={async () => {
