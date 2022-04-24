@@ -21,8 +21,13 @@ const Home: NextPage = () => {
     <div>
       {address ? (
         <>
-          <button className="btn-primary-fill col-span-2 col-start-3 ml-auto md:col-span-4 md:col-start-5 lg:col-span-4 lg:col-start-9" onClick={disconnectWallet}>Disconnect Wallet</button>
-          <p>Your address: {address}</p>
+          <div className="flex items-left">
+            <button className="m-5 px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" onClick={disconnectWallet}>Disconnect Wallet</button>
+            <p className="mt-5">{address}</p>
+          </div>
+          <div className="mt-20 grid grid-cols-2 gap-4">
+            <div className="pr-24 pl-24">
+              <h2 className="text-4xl font-bold">Create Order</h2>
           <button onClick={async () => {
             if (!signer) {
               return;
@@ -67,11 +72,21 @@ const Home: NextPage = () => {
           {order && 
             <div>{JSON.stringify(order, null, 2)}</div>
           }
+              
+          </div>
 
-          <div>
-            <label>Input order:</label>
-            <input value={input} onInput={e => setInput((e.target as any).value)}/>
-            <button onClick={async () => {
+
+          <div className="pr-24 pl-24">
+            <h2 className="text-4xl font-bold">Fill Order</h2>
+            <label className="mt-5 block text-sm font-medium text-gray-700">Paste signed order object:</label>
+            <div className="mt-2 mb-2">
+              <textarea 
+                rows={4}
+                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"
+                value={input} 
+                onInput={e => setInput((e.target as any).value)}/>
+            </div>
+            <button  className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"  onClick={async () => {
               const order = JSON.parse(input);
 
               const stats = await fetch("https://api-rinkeby.reservoir.tools/stats/v1?collection=0x79e2d470f950f2cf78eef41720e8ff2cf4b3cd78");
@@ -112,12 +127,13 @@ const Home: NextPage = () => {
               }
 
               const exchange = new Contract("0xf11f9ba71a532d170a2320aeb78596450a892775", abi);
-              await exchange.connect(signer!).fillOrder(order, packet, 6500);
+              await exchange.connect(signer!).fillOrder(order, packet, 6540);
             }}>Fill</button>
+          </div>
           </div>
         </>
       ) : (
-        <button onClick={connectWithMetamask}>Connect with Metamask</button>
+        <button className="m-5 px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"  onClick={connectWithMetamask}>Connect with Metamask</button>
       )}
     </div>
   );
