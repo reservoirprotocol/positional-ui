@@ -16,6 +16,9 @@ const Home: NextPage = () => {
   const [order, setOrder] = useState();
 
   const [input, setInput] = useState('');
+  const [contract, setContract] = useState('');
+  const [token, setToken] = useState('');
+  const [bps, setBps] = useState('');
 
   return (
     <div>
@@ -28,7 +31,40 @@ const Home: NextPage = () => {
           <div className="mt-20 grid grid-cols-2 gap-4">
             <div className="pr-24 pl-24">
               <h2 className="text-4xl font-bold">Create Order</h2>
-          <button onClick={async () => {
+              <label htmlFor="contract" className="mt-5 block text-sm font-medium text-gray-700">
+                Contract
+              </label>
+              <div className="mt-1">
+                <input
+                  name="contract"
+                  id="contract"
+                  className="border p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                  value="0x79e2d470f950f2cf78eef41720e8ff2cf4b3cd78"
+                />
+              </div>
+              <label htmlFor="token" className="mt-5 block text-sm font-medium text-gray-700">
+                Token
+              </label>
+              <div className="mt-1">
+                <input
+                  name="token"
+                  id="token"
+                  className="border p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                  value="6504"
+                />
+              </div>
+              <label htmlFor="bps" className="mt-5 block text-sm font-medium text-gray-700">
+                BPS (e.g. 8000 = 80% of floor price)
+              </label>
+              <div className="mt-1">
+                <input
+                  name="bps"
+                  id="bps"
+                  className="border p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                  value="8000"
+                />
+              </div>
+          <button className="mt-5 inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"  onClick={async () => {
             if (!signer) {
               return;
             }
@@ -68,7 +104,7 @@ const Home: NextPage = () => {
             }
 
             setOrder(order as any);
-          }}>Create order (80% below Loot floor)</button>
+          }}>Create</button>
           {order && 
             <div>{JSON.stringify(order, null, 2)}</div>
           }
@@ -77,7 +113,7 @@ const Home: NextPage = () => {
 
 
           <div className="pr-24 pl-24">
-            <h2 className="text-4xl font-bold">Fill Order</h2>
+            <h2 className="mt-5 text-4xl font-bold">Fill Order</h2>
             <label className="mt-5 block text-sm font-medium text-gray-700">Paste signed order object:</label>
             <div className="mt-2 mb-2">
               <textarea 
